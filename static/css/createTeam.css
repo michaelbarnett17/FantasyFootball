@@ -1,0 +1,23 @@
+body
+{
+    background-color:white;
+}
+.playerInfo
+{
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.player
+{
+    border-style: solid;
+    border-width: 1px;
+    border-color: #ced4da;
+    border-radius: 5px;
+    margin-bottom: 4px;
+}
+
+#createTeamNav
+{
+    color: white;
+}

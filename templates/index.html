@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}"/>
+{% endblock %}
+
+{% block title %}
+  <title>Homepage</title>
+{% endblock %}
+
+{% block container %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <h3>Sign In</h3>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <form id="login">
+          <div class="form-group">
+            <label for="emailInput">Email address</label>
+            <input type="email" class="form-control" id="emailInput" placeholder="Enter email">
+          </div>
+          <div class="form-group">
+            <label for="passwordInput">Password</label>
+            <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <span class="float-right">Don't Have an account?
+          <a class="btn btn-success" href="{{ url_for('signUp') }}" role="button">Sign Up</a>
+          </span>
+        </form>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascript %}
+  <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,21 @@
+#weekRow
+{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.btn-dark
+{
+    width: 100%;
+}
+
+#spacer
+{
+    display: inline-block;
+    width: 30px;
+}
+
+#seasonNav
+{
+    color: white;
+}

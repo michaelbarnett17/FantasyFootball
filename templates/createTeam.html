@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/createTeam.css') }}"/>
+{% endblock %}
+
+{% block title %}
+  <title>Create Team</title>
+{% endblock %}
+
+{% block container %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Add Players</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <form id=playerForm>
+          <div class="form-group">
+            <label for="playerName">Name</label>
+            <input type="text" class="form-control" id="playerName">
+          </div>
+          <div class="form-group">
+            <label for="playerTeam">Team</label>
+            <select class="form-control" id="playerTeam">
+              <option>Arizona Cardinals</option>
+              <option>Atlanta Falcons</option>
+              <option>Baltimore Ravens</option>
+              <option>Buffalo Bills</option>
+              <option>Carolina Panthers</option>
+              <option>Chicago Bears</option>
+              <option>Cincinnati Bengals</option>
+              <option>Cleveland Browns</option>
+              <option>Dallas Cowboys</option>
+              <option>Denver Broncos</option>
+              <option>Detroit Lions</option>
+              <option>Green Bay Packers</option>
+              <option>Houston Texans</option>
+              <option>Indianapolis Colts</option>
+              <option>Jacksonville Jaguars</option>
+              <option>Kansas City Chiefs</option>
+              <option>Los Angeles Chargers</option>
+              <option>Los Angeles Rams</option>
+              <option>Miami Dolphins</option>
+              <option>Minnesota Vikings</option>
+              <option>New England Patriots</option>
+              <option>New Orleans Saints</option>
+              <option>New York Giants</option>
+              <option>New York Jets</option>
+              <option>Oakland Raiders</option>
+              <option>Philadelphia Eagles</option>
+              <option>Pittsburgh Steelers</option>
+              <option>San Francisco 49ers</option>
+              <option>Seattle Seahawks</option>
+              <option>Tampa Bay Buccaneers</option>
+              <option>Tennessee Titans</option>
+              <option>Washington Redskins</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="playerPosition">Position</label>
+            <select class="form-control" id="playerPosition">
+              <option>Quarterback</option>
+              <option>Running Back</option>
+              <option>Wide Receiver</option>
+            </select>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <button type="reset" id="addPlayer" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-6 playerInfo" id="players">
+        <!--Player Will be dynamically added here-->
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascript %}
+  <script src="{{ url_for('static', filename='js/createTeam.js') }}"></script>
+{% endblock %}

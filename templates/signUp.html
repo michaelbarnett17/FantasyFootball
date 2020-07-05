@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signUp.css') }}"/>
+{% endblock %}
+
+{% block title %}
+  <title>Sign Up</title>
+{% endblock %}
+
+{% block container %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <h3>Register</h3>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <form id="login">
+          <div class="form-group">
+            <label for="emailInput">Email address</label>
+            <input type="email" class="form-control" id="emailInput" placeholder="Enter email">
+          </div>
+          <div class="form-group">
+            <label for="passwordInput">Password</label>
+            <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <label for="passwordInput">Confrim Password</label>
+            <input type="password" class="form-control" id="confrimPasswordInput" placeholder="Confrim Password">
+          </div>
+          <button type="submit" class="btn btn-primary">Register Account</button>
+        </form>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascript %}
+  <script src="{{ url_for('static', filename='js/season.js') }}"></script>
+{% endblock %}

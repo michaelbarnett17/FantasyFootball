@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/season.css') }}"/>
+{% endblock %}
+
+{% block title %}
+  <title>Season</title>
+{% endblock %}
+
+{% block container %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+       <h3>Select Starting Year</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <form id=season>
+          <div class="form-group">
+            <label for="seasonYear">Year</label>
+            <input type="text" class="form-control" id="seasonYear">
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <button type="button" id="confirmYear" class="btn btn-primary">Confirm Start Year</button>
+              <button type="button" id="startOver" class="btn btn-danger">Start Over</button>
+            </div>
+          </div>
+          <div class="row" id="weekRow">
+            <div class="col-md-6">
+              <button type="button" id="nextWeek" class="btn btn-primary">Play Next Week's Game</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <h3>Year: <span id="year"></span></h3>
+        <h3>Week: <span id="week"></span></h3>
+        <h3>Total Points: <span id="points"></span></h3>
+      </div>
+    </div>
+
+    <div class="row" id="week1-6">
+      <!-- Week 1 through 6 -->
+    </div>
+
+    <div class="row" id="week7-12" >
+      <!-- Week 7 through 12 -->
+    </div>
+
+    <div class="row" id="week12-16">
+      <!-- Week 13 through 16 -->
+
+      <!-- TABLE STRUCTURE
+      <div class="col-md-2">
+        <table class="table table-sm">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Stat</th>
+              <th scope="col">Qty</th>
+              <th scope="col">Points</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Passing Yards</th>
+              <td>1</td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <th scope="row">Passing Touchdowns</th>
+              <td>3</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <th scope="row">Passing Interceptions</th>
+              <td>5</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <th scope="row">Rushing Yards</th>
+              <td>7</td>
+              <td>8</td>
+            </tr>
+            <tr>
+              <th scope="row">Receiving Yards</th>
+              <td>9</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <th scope="row">Receiving Touchdowns</th>
+              <td>11</td>
+              <td>12</td>
+            </tr>
+            <tr>
+              <th scope="row">2-Point Conversions</th>
+              <td>13</td>
+              <td>14</td>
+            </tr>
+            <tr>
+              <th scope="row">Fumbles Lost</th>
+              <td>15</td>
+              <td>16</td>
+            </tr>
+            <tr>
+              <th scope="row">Fumble Recovered for a Touchdown</th>
+              <td>17</td>
+              <td>18</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      -->
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascript %}
+  <script src="{{ url_for('static', filename='js/season.js') }}"></script>
+{% endblock %}
