@@ -5,7 +5,6 @@ var RB = false;
 var WR = false;
 
 document.querySelector("#addPlayer").onclick = function() {
-
     processPlayer();
 };
 
@@ -37,9 +36,9 @@ function processPlayer() {
         return;
     }
 
-    if ((playerPosition == "Quarterback" && QB == false) ||
-        (playerPosition == "Running Back" && RB == false) ||
-        (playerPosition == "Wide Receiver" && WR == false)) {
+    if ((playerPosition == "QB" && QB == false) ||
+        (playerPosition == "RB" && RB == false) ||
+        (playerPosition == "WR" && WR == false)) {
 
         setGlobalVariables(playerPosition);
         addPlayer(playerName, playerTeam, playerPosition);
@@ -64,16 +63,16 @@ function addPlayer(playerName, playerTeam, playerPosition) {
     var name = document.createElement("h5");
     name.innerHTML = playerName;
 
-    var team = document.createElement("h5");
-    team.innerHTML = playerTeam;
-
     var position = document.createElement("h5");
-    position.innerHTML = playerPosition;
+    position.innerHTML = lookupPosition(playerPosition);
 
+    var team = document.createElement("h5");
+    team.innerHTML = lookupTeam(playerTeam);
 
     div.appendChild(name);
     div.appendChild(team);
     div.appendChild(position);
+
     players.appendChild(div);
 
     playerCount++;
@@ -81,16 +80,70 @@ function addPlayer(playerName, playerTeam, playerPosition) {
 
 function setGlobalVariables(playerPosition) {
 
-    if (playerPosition == "Quarterback") {
+    if (playerPosition == "QB") {
         QB = true;
         document.querySelector("#quarterBack").disabled = true;
-    } else if (playerPosition == "Running Back") {
+    } else if (playerPosition == "RB") {
         RB = true;
         document.querySelector("#runningBack").disabled = true;
-    } else if (playerPosition == "Wide Receiver") {
+    } else if (playerPosition == "WR") {
         WR = true;
         document.querySelector("#wideReceiver").disabled = true;
     } else {
         alert("invalid position");
     }
 }
+
+function lookupPosition(playerPosition)
+{
+    if (playerPosition == "QB") {
+        return "Quarterback";
+    } else if (playerPosition == "RB") {
+        return "Running Back";
+    } else if (playerPosition == "WR") {
+        return "Wide Receiver";
+    }
+
+}
+
+function lookupTeam(playerTeam)
+{
+    var teams = {
+        "ARI" : "Arizona Cardinals",
+        "ATL" : "Atlanta Falcons",
+        "BAL" : "Baltimore Ravens",
+        "BUF" : "Buffalo Bills",
+        "CAR" : "Carolina Panthers",
+        "CHI" : "Chicago Bears",
+        "CIN" : "Cincinnati Bengals",
+        "CLE" : "Cleveland Browns",
+        "DAL" : "Dallas Cowboys",
+        "DEN" : "Denver Broncos",
+        "DET" : "Detroit Lions",
+        "GB"  : "Green Bay Packers",
+        "HOU" : "Houston Texans",
+        "IND" : "Indianapolis Colts",
+        "JAX" : "Jacksonville Jaguars",
+        "KC"  : "Kansas City Chiefs",
+        "LAC" : "Los Angeles Chargers",
+        "LAR" : "Los Angeles Rams",
+        "LV"  : "Las Vegas Raiders",
+        "MIA" : "Miami Dolphins",
+        "MIN" : "Minnesota Vikings",
+        "NE"  : "New England Patriots",
+        "NO"  : "New Orleans Saints",
+        "NYG" : "New York Giants",
+        "NYJ" : "New York Jets",
+        "PHI" : "Philadelphia Eagles",
+        "PHO" : "Pittsburgh Steelers",
+        "PIT" : "San Francisco 49ers",
+        "SEA" : "Seattle Seahawks",
+        "TB"  : "Tampa Bay Buccaneers",
+        "TEN" : "Tennessee Titans",
+        "WAS" : "Washington Redskins"
+    };
+
+    return teams[playerTeam];
+}
+
+

@@ -17,8 +17,8 @@ document.querySelector("#nextWeek").onclick = function () {
 document.querySelector("#confirmYear").onclick = function () {
     var year = document.getElementById("seasonYear").value;
 
-    if (year == null || year == "" || isNaN(year) || year < 1920) {
-        alert("Enter a valid year before starting season");
+    if (year == null || year == "" || isNaN(year) || year != 2019) {
+        alert("Application currently works for 2019 season only");
         return;
     }
     setYear();

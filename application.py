@@ -6,9 +6,10 @@ app = Flask(__name__)
 def createTeam():
     return render_template("createTeam.html")
 
+# TODO: change "createTeam.html" to "index.html" when users can login
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("createTeam.html")
 
 @app.route("/instructions")
 def instructions():
