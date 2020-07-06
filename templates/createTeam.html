@@ -17,7 +17,7 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <form id=playerForm>
+        <form id="playerForm" action="/season">
           <div class="form-group">
             <label for="playerName">Name</label>
             <input type="text" class="form-control" id="playerName">
@@ -62,14 +62,16 @@
           <div class="form-group">
             <label for="playerPosition">Position</label>
             <select class="form-control" id="playerPosition">
-              <option>Quarterback</option>
-              <option>Running Back</option>
-              <option>Wide Receiver</option>
+              <option id="quarterBack">Quarterback</option>
+              <option id="runningBack">Running Back</option>
+              <option id="wideReceiver">Wide Receiver</option>
             </select>
           </div>
           <div class="row">
-            <div class="col-md-6">
-              <button type="reset" id="addPlayer" class="btn btn-primary">Submit</button>
+            <div class="col-md-12">
+              <button type="reset" id="addPlayer" class="btn btn-primary">Add Player</button>
+              <button type="submit" id="startSeason" class="btn btn-success" disabled>Start Season</button>
+              <button type="button" id="startOver" class="btn btn-danger">Start Start Over</button>
             </div>
           </div>
         </form>

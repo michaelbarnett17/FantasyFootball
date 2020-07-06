@@ -6,8 +6,6 @@ const rowBreak1 = 7;
 const rowBreak2 = 13;
 const finalWeek = 16;
 
-
-
 document.querySelector("#nextWeek").onclick = function () {
     if (yearStarted == true) {
         processWeek();
@@ -16,25 +14,15 @@ document.querySelector("#nextWeek").onclick = function () {
     }
 };
 
-function processWeek() {
-    if (weekCount <= 16) {
-        week = document.getElementById("week");
-        week.innerHTML = weekCount;
-        addWeek();
-        weekCount++;
-    } else {
-        alert("Season Finished. Your overall point total is: ");
-    }
-}
-
 document.querySelector("#confirmYear").onclick = function () {
     var year = document.getElementById("seasonYear").value;
 
-    if (year == null || year == "") {
-        alert("Enter a year before starting season");
+    if (year == null || year == "" || isNaN(year) || year < 1920) {
+        alert("Enter a valid year before starting season");
         return;
     }
     setYear();
+    document.querySelector("#nextWeek").disabled = false;
 };
 
 document.querySelector("#startOver").onclick = function () {
@@ -51,7 +39,19 @@ document.querySelector("#startOver").onclick = function () {
     document.getElementById("week").innerHTML = "";;
     document.getElementById("points").innerHTML ="";
     document.getElementById("seasonYear").value ="";
+    document.querySelector("#nextWeek").disabled = true;
 };
+
+function processWeek() {
+    if (weekCount <= 16) {
+        week = document.getElementById("week");
+        week.innerHTML = weekCount;
+        addWeek();
+        weekCount++;
+    } else {
+        alert("Season Finished. Your overall point total is: ");
+    }
+}
 
 function addWeek() {
     var row;
@@ -86,7 +86,19 @@ function addWeek() {
     week.appendChild(htmlPlayer2);
     week.appendChild(htmlPlayer3);
     row.appendChild(week);
+}
 
+function setYear() {
+    if (yearStarted == false) {
+        year = document.getElementById("seasonYear").value;
+        var yearHtml = document.getElementById("year");
+        yearHtml.innerHTML = year;
+        yearStarted = true;
+    }
+    else
+    {
+      alert("Season already in Progress. Select \"Start Over\" to pick a new year.");
+    }
 }
 
 function createHTML(playerNumber) {
@@ -158,15 +170,3 @@ function createHTML(playerNumber) {
   return html;
 }
 
-function setYear() {
-    if (yearStarted == false) {
-        year = document.getElementById("seasonYear").value;
-        var yearHtml = document.getElementById("year");
-        yearHtml.innerHTML = year;
-        yearStarted = true;
-    }
-    else
-    {
-      alert("Season already in Progress. Select \"Start Over\" to pick a new year.");
-    }
-}

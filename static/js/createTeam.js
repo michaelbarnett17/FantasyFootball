@@ -7,7 +7,19 @@ var WR = false;
 document.querySelector("#addPlayer").onclick = function() {
 
     processPlayer();
-}
+};
+
+document.getElementById("startOver").onclick = function() {
+    playerCount = 1;
+    QB = false;
+    RB = false;
+    WR = false;
+    document.querySelector("#players").innerHTML ="";
+    document.querySelector("#startSeason").disabled = true;
+    document.querySelector("#quarterBack").disabled = false;
+    document.querySelector("#runningBack").disabled = false;
+    document.querySelector("#wideReceiver").disabled = false;
+};
 
 function processPlayer() {
 
@@ -31,6 +43,10 @@ function processPlayer() {
 
         setGlobalVariables(playerPosition);
         addPlayer(playerName, playerTeam, playerPosition);
+
+        if (playerCount > maxPlayers){
+            document.querySelector("#startSeason").disabled = false;
+        }
     } else {
         alert("You already have a " + playerPosition);
         return;
@@ -67,10 +83,13 @@ function setGlobalVariables(playerPosition) {
 
     if (playerPosition == "Quarterback") {
         QB = true;
+        document.querySelector("#quarterBack").disabled = true;
     } else if (playerPosition == "Running Back") {
         RB = true;
+        document.querySelector("#runningBack").disabled = true;
     } else if (playerPosition == "Wide Receiver") {
         WR = true;
+        document.querySelector("#wideReceiver").disabled = true;
     } else {
         alert("invalid position");
     }
