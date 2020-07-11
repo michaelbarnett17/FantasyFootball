@@ -4,6 +4,10 @@ var QB = false;
 var RB = false;
 var WR = false;
 
+document.querySelector("#searchPlayer").onclick = function() {
+    searchPlayer();
+};
+
 document.querySelector("#addPlayer").onclick = function() {
     processPlayer();
 };
@@ -19,6 +23,10 @@ document.getElementById("startOver").onclick = function() {
     document.querySelector("#runningBack").disabled = false;
     document.querySelector("#wideReceiver").disabled = false;
 };
+
+function searchPlayer() {
+
+}
 
 function processPlayer() {
 
@@ -145,5 +153,7 @@ function lookupTeam(playerTeam)
 
     return teams[playerTeam];
 }
+
+
 
 
