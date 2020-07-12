@@ -21,19 +21,52 @@ def instructions():
 def season():
     return render_template("season.html")
 
-@app.route("/roster")
-def roster():
-    return render_template("roster.html")
-
 @app.route("/signUp")
 def signUp():
     return render_template("signUp.html")
 
+
+@app.route("/eligiblePlayers")
+def eligiblePlayers():
+    conn = sqlite3.connect('football.db')
+    c = conn.cursor()
+
+    c.execute("""select playerid, firstName, lastName, position, team
+                from player2019
+                where team is not null
+                and team != ''
+                and position in ('QB', 'RB', 'WR', 'TE', 'K')
+                order by position""")
+    try:
+        eligiblePlayers = c.fetchall()
+        conn.close()
+        return render_template("createTeam.html", eligiblePlayers = eligiblePlayers)
+    except:
+        conn.close()
+        return render_template("createTeam.html", eligiblePlayers = eligiblePlayers)
+
+@app.route("/release")
+def release():
+    playerId = request.args.get("release")
+    conn = sqlite3.connect('football.db')
+    c = conn.cursor()
+    c.execute("""delete from fantasyteam
+                where playerid = ?"""
+                , (playerId,))
+    conn.commit()
+    conn.close()
+    return roster()
+
+@app.route("/roster")
+def roster():
+    conn = sqlite3.connect('football.db')
+    c = conn.cursor()
+    return getCurrentRoster(c, conn)
+
 @app.route("/addPlayer", methods=["GET", "POST"])
 def addPlayer():
-
-    firstName = request.args.get("firstName")
-    lastName = request.args.get("lastName")
+    firstName = request.args.get("firstName").strip()
+    lastName = request.args.get("lastName").strip()
     team = request.args.get("team")
     position = request.args.get("position")
 
@@ -47,12 +80,37 @@ def addPlayer():
                 and position = ?"""
                 , (firstName, lastName, team, position))
 
+    return tryToAddPlayerToRoster(c, conn)
+
+@app.route("/addPlayerFromList", methods=["GET", "POST"])
+def addPlayerFromList():
+    playerId = request.args.get("playerId")
+
+    conn = sqlite3.connect('football.db')
+    c = conn.cursor()
+    c.execute("""select playerid, position
+                from Player2019
+                where playerId = ?"""
+                , (playerId,))
+
+    return tryToAddPlayerToRoster(c, conn)
+
+def getCurrentRoster(c, conn):
+    c.execute("""select fantasyteam.playerid, firstName, lastName, position, team, photourl
+                from player2019
+                join fantasyteam
+                on player2019.playerid = fantasyTeam.playerid""")
+    try:
+        roster = c.fetchall()
+        conn.close()
+        return render_template("roster.html", roster = roster)
+    except:
+        conn.close()
+        return render_template("roster.html", roster = roster)
+
+def tryToAddPlayerToRoster(c, conn):
     try:
         player = c.fetchall()[0]
-
-        print(player)
-        print(player[0])
-        print(player[1])
 
         c.execute("""select count(position)
                     from player2019
@@ -62,20 +120,19 @@ def addPlayer():
                     , (player[1],))
 
         exisitingCount = c.fetchone()[0]
-        print("exisiting count for this pos is ", exisitingCount)
 
         if (exisitingCount == 0):
             c.execute("""insert into fantasyteam (playerid)
                         values (?)"""
                         , (player[0],))
             conn.commit()
-            return render_template("roster.html", player = player)
+            return getCurrentRoster(c, conn)
         else:
             player = ('You already have a ' + player[1],)
+            conn.close()
             return render_template("createTeam.html", player = player)
-
     except:
+        conn.close()
         return render_template("createTeam.html", player = None)
-
 
 

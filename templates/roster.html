@@ -6,10 +6,53 @@
 
 {% block title %}
   <title>Roster</title>
+
 {% endblock %}
 
 {% block container %}
-
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Position</th>
+              <th scope="col">Team</th>
+              <th scope="col">Photo</th>
+              <th scope="col" class="release">Release Player</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for player in roster %}
+              <tr>
+                <td>{{ player[1] }} {{ player[2] }}</td>
+                <td>{{ player[3] }}</td>
+                <td>{{ player[4] }}</td>
+                <td>
+                  <img src="{{ player[5] }}" alt="image of player">
+                </td>
+                <td class="release">
+                  <form>
+                     <input type="hidden" id="release" name="release" value="{{ player[0] }}">
+                     <button type="submit" name="releasePlayer" formaction="/release" class="btn btn-danger">Release</button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+              <tr>
+                <td>
+                   <form>
+                      <button type="submit" id="addAnotherPlayer" formaction="/createTeam" class="btn btn-primary">Add Another Player</button>
+                   </form>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
 {% endblock %}
 
 {% block javascript %}

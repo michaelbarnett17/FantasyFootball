@@ -7,11 +7,7 @@ const rowBreak2 = 13;
 const finalWeek = 16;
 
 document.querySelector("#nextWeek").onclick = function () {
-    if (yearStarted == true) {
-        processWeek();
-    } else {
-        alert("You need to select a starting year before playing a game");
-    }
+    processWeek();
 };
 
 document.querySelector("#confirmYear").onclick = function () {

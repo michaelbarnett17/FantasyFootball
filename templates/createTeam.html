@@ -69,12 +69,14 @@
               <option id="quarterBack" value="QB">Quarterback</option>
               <option id="runningBack" value="RB">Running Back</option>
               <option id="wideReceiver" value="WR">Wide Receiver</option>
+              <option id="tightEnd" value="TE">Tight End</option>
+              <option id="kicker" value="K">Kicker</option>
             </select>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <button type="submit" id="addPlayer" name="addPlayer" formaction="/addPlayer" class="btn btn-primary">Search Player</button>
-              <button type="button" id="startOver" class="btn btn-danger">Start Start Over</button>
+              <button type="submit" id="addPlayer" name="addPlayer" formaction="/addPlayer" class="btn btn-primary">Add Player</button>
+              <button type="submit" id="addPlayer" name="addPlayer" formaction="/roster" class="btn btn-success">View Roster</button>
             </div>
           </div>
         </form>
@@ -87,6 +89,40 @@
           <h4>Player Not Found</h4>
           {% endif %}
         {% endif %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <form>
+          <button type="submit" id="eligiblePlayers" name="eligiblePlayers" formaction="/eligiblePlayers" class="btn btn-info">See Eligible players</button>
+        </form>
+
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Position</th>
+              <th scope="col">Team</th>
+              <th scope="col">Add Player</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for player in eligiblePlayers %}
+              <tr>
+                <td>{{ player[1] }} {{ player[2] }}</td>
+                <td>{{ player[3] }}</td>
+                <td>{{ player[4] }}</td>
+                <td>
+                  <form>
+                     <input type="hidden" name="playerId" value="{{ player[0] }}">
+                     <button type="submit" formaction="/addPlayerFromList" class="btn btn-primary">Add Player</button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
       </div>
     </div>
   </div>

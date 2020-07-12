@@ -9,12 +9,14 @@
     <!-- Optional CSS -->
     {% block stylesheet %}
     {% endblock %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/layout.css') }}"/>
     {% block title %}
     {% endblock %}
   </head>
   <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
       <ul class="navbar-nav">
+        <a class="navbar-brand" href="{{ url_for('createTeam') }}" id="fantasyFootball">FANTASY FOOTBALL 2019</a>
         <!-- TODO: uncomment next 3 lines when users can login
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('index') }}" id="homeNav">Home</a>

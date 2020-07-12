@@ -22,7 +22,12 @@ body
     color: white;
 }
 
-.btn-danger
+.btn-info
+{
+    margin-top: 20px;
+}
+
+.btn-success
 {
     float: right;
 }
