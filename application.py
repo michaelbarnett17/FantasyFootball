@@ -21,10 +21,57 @@ def instructions():
 def season():
     return render_template("season.html")
 
+@app.route("/startOver")
+def startOver():
+    conn = sqlite3.connect('football.db')
+    c = conn.cursor()
+    c.execute("""update currentWeek set weekNumber = 1""")
+    c.execute("""delete from fantasyTeam""")
+    conn.commit()
+    return render_template("season.html")
+
 @app.route("/signUp")
 def signUp():
     return render_template("signUp.html")
 
+@app.route("/playNextWeeksGame")
+def playNextWeeksGame():
+    conn = sqlite3.connect('football.db')
+    c = conn.cursor()
+
+    c.execute("""select weekNumber from currentWeek""")
+    currentWeek = c.fetchone()[0]
+
+    # KEEPING WEEK THE SAME FOR TESTING PURPOSES
+    #c.execute("""update currentWeek set weekNumber = weekNumber + 1""")
+    #conn.commit()
+
+    c.execute("""select playerID from fantasyTeam""")
+    playerList = []
+    players = c.fetchall()
+
+    for player in players:
+        playerList.append(player[0])
+
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+
+    c.execute("""select playerid, name, week,
+            PassingYards, PassingTouchdowns, PassingInterceptions, RushingYards, RushingTouchdowns, Receptions, ReceivingYards, ReceivingTouchdowns, TwoPointConversionPasses, TwoPointConversionRuns,
+            TwoPointConversionReceptions, FumblesLost, FumbleReturnTouchdowns, ExtraPointsMade, FieldGoalsMade0to19, FieldGoalsMade20to29, FieldGoalsMade30to39, FieldGoalsMade40to49, FieldGoalsMade50Plus
+            from playerGame2019
+            where seasonType = '1'
+            and week = ?
+            and playerid in (?, ?, ?, ?, ?)""", (currentWeek, playerList[0], playerList[1], playerList[2], playerList[3], playerList[4]))
+
+    playerGame = c.fetchall()
+    #print(playerGame)
+    #for pg in playerGame:
+        #print(f"{pg['playerID']}")
+    #print(playerList)
+    print(currentWeek)
+
+    return render_template("season.html", players = players, playerGame = playerGame, currentWeek=currentWeek)
 
 @app.route("/eligiblePlayers")
 def eligiblePlayers():
@@ -134,5 +181,4 @@ def tryToAddPlayerToRoster(c, conn):
     except:
         conn.close()
         return render_template("createTeam.html", player = None)
-
 

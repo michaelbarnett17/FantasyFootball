@@ -12,16 +12,13 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6">
-       <h3>Select Starting Year</h3>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
         <form id=season>
           <div class="row" id="weekRow">
             <div class="col-md-12">
-              <button type="button" id="nextWeek" class="btn btn-success">Play Next Week's Game</button>
-              <button type="button" id="startOver" class="btn btn-danger">Start Over</button>
+              <form>
+                <button type="submit" id="nextWeek" formaction="/playNextWeeksGame" class="btn btn-success">Play Next Week's Game</button>
+                <button type="submit" id="startOver" formaction="/startOver" class="btn btn-danger">Start Over</button>
+              </form>
             </div>
           </div>
         </form>
@@ -34,20 +31,12 @@
     </div>
 
     <div class="row" id="week1-6">
-      <!-- Week 1 through 6 -->
-    </div>
-
-    <div class="row" id="week7-12" >
-      <!-- Week 7 through 12 -->
-    </div>
-
-    <div class="row" id="week12-16">
-      <!-- Week 13 through 16 -->
-
-      <!-- TABLE STRUCTURE
-      <div class="col-md-2">
+      <div id="weekNumber" class="col-md-2">
+      {% for player in playerGame %}
+      <button type="button" class="btn btn-dark" data-toggle="collapse" data-target="#{{ player }}">{{ player['name'] }}</button>
+      <div id="{{ player }}" class="collapse">
         <table class="table table-sm">
-          <thead class="thead-dark">
+          <thead class="thead-secondary">
             <tr>
               <th scope="col">Stat</th>
               <th scope="col">Qty</th>
@@ -57,53 +46,78 @@
           <tbody>
             <tr>
               <th scope="row">Passing Yards</th>
-              <td>1</td>
-              <td>2</td>
+              <td>{{ player['passingYards'] }}</td>
+              <td>xxxxxxxx</td>
             </tr>
             <tr>
               <th scope="row">Passing Touchdowns</th>
-              <td>3</td>
-              <td>4</td>
+              <td>{{ player['PassingTouchdowns'] }}</td>
+              <td>xxxxxxxx</td>
             </tr>
             <tr>
               <th scope="row">Passing Interceptions</th>
-              <td>5</td>
-              <td>6</td>
+              <td>{{ player['PassingInterceptions'] }}</td>
+              <td>xxxxxxxx</td>
             </tr>
             <tr>
               <th scope="row">Rushing Yards</th>
-              <td>7</td>
-              <td>8</td>
+              <td>{{ player['RushingYards'] }}</td>
+              <td>xxxxxxxx</td>
             </tr>
             <tr>
               <th scope="row">Receiving Yards</th>
-              <td>9</td>
-              <td>10</td>
+              <td>{{ player['ReceivingYards'] }}</td>
+              <td>xxxxxxxx</td>
             </tr>
             <tr>
               <th scope="row">Receiving Touchdowns</th>
-              <td>11</td>
-              <td>12</td>
+              <td>{{ player['ReceivingTouchdowns'] }}</td>
+              <td>xxxxxxxx</td>
             </tr>
             <tr>
               <th scope="row">2-Point Conversions</th>
-              <td>13</td>
-              <td>14</td>
+              <td>{{ player['TwoPointConversionPasses']|int + player['TwoPointConversionRuns']|int + player['TwoPointConversionReceptions']|int }}</td>
+              <td>xxxxxxxx</td>
             </tr>
             <tr>
               <th scope="row">Fumbles Lost</th>
-              <td>15</td>
-              <td>16</td>
+              <td>{{ player['FumblesLost'] }}</td>
+              <td>xxxxxxxx</td>
             </tr>
             <tr>
               <th scope="row">Fumble Recovered for a Touchdown</th>
-              <td>17</td>
-              <td>18</td>
+              <td>{{ player['FumbleReturnTouchdowns'] }}</td>
+              <td>xxxxxxxx</td>
+            </tr>
+            <tr>
+              <th scope="row">Extra Points</th>
+              <td>{{ player['ExtraPointsMade'] }}</td>
+              <td>xxxxxxxx</td>
+            </tr>
+            <tr>
+              <th scope="row">Field Goals 0-49 yards</th>
+              <td>{{ player['FieldGoalsMade0to19']|int + player['FieldGoalsMade20to29']|int + player['FieldGoalsMade30to39']|int + player['FieldGoalsMade40to49']|int }} </td>
+              <td>xxxxxxxx</td>
+            </tr>
+            <tr>
+              <th scope="row">Field Goals 50+ yards</th>
+              <td>{{ player['FieldGoalsMade50Plus'] }}</td>
+              <td>xxxxxxxx</td>
             </tr>
           </tbody>
         </table>
       </div>
-      -->
+      {% endfor %}
+      </div>
+
+    </div>
+
+    <div class="row" id="week7-12" >
+      <!-- Week 7 through 12 -->
+    </div>
+      <!-- Week 12 through 16 -->
+    <div class="row" id="week12-16">
+
     </div>
   </div>
 {% endblock %}
