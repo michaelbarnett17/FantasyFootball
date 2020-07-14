@@ -30,8 +30,9 @@
       </div>
     </div>
 
-    <div class="row" id="week1-6">
-      <div id="weekNumber" class="col-md-2">
+    <div class="row" id="gameRow">
+      {% for playerGame in arrayOfPlayerGames %}
+      <div id="weekNumber" class="col-md-2 game">
       {% for player in playerGame %}
       <button type="button" class="btn btn-dark" data-toggle="collapse" data-target="#{{ player }}">{{ player['name'] }}</button>
       <div id="{{ player }}" class="collapse">
@@ -109,15 +110,7 @@
       </div>
       {% endfor %}
       </div>
-
-    </div>
-
-    <div class="row" id="week7-12" >
-      <!-- Week 7 through 12 -->
-    </div>
-      <!-- Week 12 through 16 -->
-    <div class="row" id="week12-16">
-
+      {% endfor %}
     </div>
   </div>
 {% endblock %}

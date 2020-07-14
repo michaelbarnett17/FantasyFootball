@@ -25,41 +25,38 @@ def season():
     c.execute("""select weekNumber from currentWeek""")
     currentWeek = c.fetchone()[0]
 
-    #################### week 1 hard coded in ################################
-    c.execute("""select playerID from fantasyPlayerGame
-                where week = '1'""")
-    players = c.fetchall()
-
-    playerList = []
-    for player in players:
-        playerList.append(player[0])
-
-    print(playerList)
-    print(currentWeek)
+    #################### week 2 hard coded in  next line
+    currentWeek = 6
 
     conn.row_factory = sqlite3.Row
-    c = conn.cursor()
 
-    ####################### week one hard coded in ############################
-    #if (1==0):
-    c.execute("""select playerid, name, week,
-         PassingYards, PassingTouchdowns, PassingInterceptions, RushingYards, RushingTouchdowns, Receptions, ReceivingYards, ReceivingTouchdowns, TwoPointConversionPasses, TwoPointConversionRuns,
-         TwoPointConversionReceptions, FumblesLost, FumbleReturnTouchdowns, ExtraPointsMade, FieldGoalsMade0to19, FieldGoalsMade20to29, FieldGoalsMade30to39, FieldGoalsMade40to49, FieldGoalsMade50Plus
-         from playerGame2019
-         where seasonType = '1'
-         and week = '1'
-         and playerid in (?, ?, ?, ?, ?)""", (playerList[0], playerList[1], playerList[2], playerList[3], playerList[4]))
+    arrayOfPlayerGames = []
+    for week in range(1, 8):
+        ####################### uncomment if statement to play games ############################
+        #if (1==0):
+        c = conn.cursor()
+        c.execute("""select PG.playerid, name, PG.week,
+                    PassingYards, PassingTouchdowns, PassingInterceptions, RushingYards, RushingTouchdowns, Receptions, ReceivingYards, ReceivingTouchdowns, TwoPointConversionPasses, TwoPointConversionRuns,
+                    TwoPointConversionReceptions, FumblesLost, FumbleReturnTouchdowns, ExtraPointsMade, FieldGoalsMade0to19, FieldGoalsMade20to29, FieldGoalsMade30to39, FieldGoalsMade40to49, FieldGoalsMade50Plus
+                    from playerGame2019 'PG'
+                    join
+                    fantasyplayergame 'FPG'
+                    on PG.playerid = FPG.playerid and PG.week = FPG.week
+                    where seasonType = '1'
+                    and PG.week = ?
+                    order by PG.playerid""", (week,))
 
-    playerGame = c.fetchall()
-    #print(playerGame)
-    for pg in playerGame:
-        print(f"{pg['playerID']}")
-    #print(playerList)
-    print(currentWeek)
+        playerGame = c.fetchall()
+        #print(playerGame)
+        #for pg in playerGame:
+            #print(f"{pg['playerID']}")
 
-    return render_template("season.html", players = players, playerGame = playerGame, currentWeek=currentWeek)
-    #else:
-        #return render_template("season.html")
+        arrayOfPlayerGames.append(playerGame)
+
+    return render_template("season.html", arrayOfPlayerGames = arrayOfPlayerGames)
+        ############### comment else statement to play games
+        #else:
+            #return render_template("season.html")
 
 
 
