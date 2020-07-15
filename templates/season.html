@@ -31,11 +31,17 @@
     </div>
 
     <div class="row" id="gameRow">
-      {% for playerGame in arrayOfPlayerGames %}
+      {% for fantasyGame in fantasyGames %}
       <div id="weekNumber" class="col-md-2 game">
-      {% for player in playerGame %}
-      <button type="button" class="btn btn-dark" data-toggle="collapse" data-target="#{{ player }}">{{ player['name'] }}</button>
-      <div id="{{ player }}" class="collapse">
+        <div>Week: {{ loop.index }}</div>
+      {% for playerGame in fantasyGame %}
+        {{ playerGame['PlayerPoints']|int }}
+      {% endfor %}
+
+
+      {% for playerGame in fantasyGame %}
+      <button type="button" class="btn btn-dark" data-toggle="collapse" data-target="#{{ playerGame }}">{{ playerGame['name'] }} <span class="float-right">{{'%0.2f'| format(playerGame['PlayerPoints']|float)}}</span></button>
+      <div id="{{ playerGame }}" class="collapse">
         <table class="table table-sm">
           <thead class="thead-secondary">
             <tr>
@@ -47,63 +53,73 @@
           <tbody>
             <tr>
               <th scope="row">Passing Yards</th>
-              <td>{{ player['passingYards'] }}</td>
-              <td>xxxxxxxx</td>
+              <td>{{ playerGame['passingYards'] }}</td>
+              <td>{{ playerGame['PassingYards_Pts'] }}</td>
             </tr>
             <tr>
               <th scope="row">Passing Touchdowns</th>
-              <td>{{ player['PassingTouchdowns'] }}</td>
-              <td>xxxxxxxx</td>
+              <td>{{ playerGame['PassingTouchdowns'] }}</td>
+              <td>{{ playerGame['PassingTouchdowns_Pts'] }}</td>
             </tr>
             <tr>
               <th scope="row">Passing Interceptions</th>
-              <td>{{ player['PassingInterceptions'] }}</td>
-              <td>xxxxxxxx</td>
+              <td>{{ playerGame['PassingInterceptions'] }}</td>
+              <td>{{ playerGame['PassingInterceptions_Pts'] }}</td>
             </tr>
             <tr>
               <th scope="row">Rushing Yards</th>
-              <td>{{ player['RushingYards'] }}</td>
-              <td>xxxxxxxx</td>
+              <td>{{ playerGame['RushingYards'] }}</td>
+              <td>{{ playerGame['RushingYards_Pts'] }}</td>
             </tr>
             <tr>
+            <th scope="row">Rushing Touchdowns</th>
+              <td>{{ playerGame['RushingTouchdowns'] }}</td>
+              <td>{{ playerGame['RushingTouchdowns_Pts'] }}</td>
+            </tr>
+            <th scope="row">Receptions</th>
+              <td>{{ playerGame['Receptions'] }}</td>
+              <td>{{ playerGame['Receptions_Pts'] }}</td>
+            </tr>
+            <tr>
+            <tr>
               <th scope="row">Receiving Yards</th>
-              <td>{{ player['ReceivingYards'] }}</td>
-              <td>xxxxxxxx</td>
+              <td>{{ playerGame['ReceivingYards'] }}</td>
+              <td>{{ playerGame['ReceivingYards_Pts'] }}</td>
             </tr>
             <tr>
               <th scope="row">Receiving Touchdowns</th>
-              <td>{{ player['ReceivingTouchdowns'] }}</td>
-              <td>xxxxxxxx</td>
+              <td>{{ playerGame['ReceivingTouchdowns'] }}</td>
+              <td>{{ playerGame['ReceivingTouchdowns_Pts'] }}</td>
             </tr>
             <tr>
               <th scope="row">2-Point Conversions</th>
-              <td>{{ player['TwoPointConversionPasses']|int + player['TwoPointConversionRuns']|int + player['TwoPointConversionReceptions']|int }}</td>
-              <td>xxxxxxxx</td>
+              <td>{{ playerGame['TwoPointConversionPasses']|int + playerGame['TwoPointConversionRuns']|int + playerGame['TwoPointConversionReceptions']|int }}</td>
+              <td>{{ playerGame['TwoPointConversion_Pts'] }}</td>
             </tr>
             <tr>
               <th scope="row">Fumbles Lost</th>
-              <td>{{ player['FumblesLost'] }}</td>
-              <td>xxxxxxxx</td>
+              <td>{{ playerGame['FumblesLost'] }}</td>
+              <td>{{ playerGame['FumblesLost_Pts'] }}</td>
             </tr>
             <tr>
               <th scope="row">Fumble Recovered for a Touchdown</th>
-              <td>{{ player['FumbleReturnTouchdowns'] }}</td>
-              <td>xxxxxxxx</td>
+              <td>{{ playerGame['FumbleReturnTouchdowns'] }}</td>
+              <td>{{ playerGame['FumbleReturnTouchdowns_Pts'] }}</td>
             </tr>
             <tr>
               <th scope="row">Extra Points</th>
-              <td>{{ player['ExtraPointsMade'] }}</td>
-              <td>xxxxxxxx</td>
+              <td>{{ playerGame['ExtraPointsMade'] }}</td>
+              <td>{{ playerGame['ExtraPointsMade_Pts'] }}</td>
             </tr>
             <tr>
               <th scope="row">Field Goals 0-49 yards</th>
-              <td>{{ player['FieldGoalsMade0to19']|int + player['FieldGoalsMade20to29']|int + player['FieldGoalsMade30to39']|int + player['FieldGoalsMade40to49']|int }} </td>
-              <td>xxxxxxxx</td>
+              <td>{{ playerGame['FieldGoalsMade0to19']|int + playerGame['FieldGoalsMade20to29']|int + playerGame['FieldGoalsMade30to39']|int + playerGame['FieldGoalsMade40to49']|int }} </td>
+              <td>{{ playerGame['FieldGoalsMade0to49_Pts'] }}</td>
             </tr>
             <tr>
               <th scope="row">Field Goals 50+ yards</th>
-              <td>{{ player['FieldGoalsMade50Plus'] }}</td>
-              <td>xxxxxxxx</td>
+              <td>{{ playerGame['FieldGoalsMade50Plus'] }}</td>
+              <td>{{ playerGame['FieldGoalsMade50Plus_Pts'] }}</td>
             </tr>
           </tbody>
         </table>

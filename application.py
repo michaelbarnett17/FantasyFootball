@@ -17,62 +17,6 @@ def index():
 def instructions():
     return render_template("instructions.html")
 
-@app.route("/season")
-def season():
-    conn = sqlite3.connect('football.db')
-    c = conn.cursor()
-
-    c.execute("""select weekNumber from currentWeek""")
-    currentWeek = c.fetchone()[0]
-
-    #################### week 2 hard coded in  next line
-    currentWeek = 6
-
-    conn.row_factory = sqlite3.Row
-
-    arrayOfPlayerGames = []
-    for week in range(1, 8):
-        ####################### uncomment if statement to play games ############################
-        #if (1==0):
-        c = conn.cursor()
-        c.execute("""select PG.playerid, name, PG.week,
-                    PassingYards, PassingTouchdowns, PassingInterceptions, RushingYards, RushingTouchdowns, Receptions, ReceivingYards, ReceivingTouchdowns, TwoPointConversionPasses, TwoPointConversionRuns,
-                    TwoPointConversionReceptions, FumblesLost, FumbleReturnTouchdowns, ExtraPointsMade, FieldGoalsMade0to19, FieldGoalsMade20to29, FieldGoalsMade30to39, FieldGoalsMade40to49, FieldGoalsMade50Plus
-                    from playerGame2019 'PG'
-                    join
-                    fantasyplayergame 'FPG'
-                    on PG.playerid = FPG.playerid and PG.week = FPG.week
-                    where seasonType = '1'
-                    and PG.week = ?
-                    order by PG.playerid""", (week,))
-
-        playerGame = c.fetchall()
-        #print(playerGame)
-        #for pg in playerGame:
-            #print(f"{pg['playerID']}")
-
-        arrayOfPlayerGames.append(playerGame)
-
-    return render_template("season.html", arrayOfPlayerGames = arrayOfPlayerGames)
-        ############### comment else statement to play games
-        #else:
-            #return render_template("season.html")
-
-
-
-@app.route("/startOver")
-def startOver():
-    conn = sqlite3.connect('football.db')
-    c = conn.cursor()
-    c.execute("""update currentWeek set weekNumber = 1""")
-    c.execute("""delete from fantasyTeam""")
-    conn.commit()
-    return render_template("season.html")
-
-@app.route("/signUp")
-def signUp():
-    return render_template("signUp.html")
-
 @app.route("/playNextWeeksGame")
 def playNextWeeksGame():
     conn = sqlite3.connect('football.db')
@@ -97,7 +41,119 @@ def playNextWeeksGame():
                     , (player, currentWeek))
         conn.commit()
 
+    return season()
+
+@app.route("/season")
+def season():
+    conn = sqlite3.connect('football.db')
+    c = conn.cursor()
+
+    c.execute("""select weekNumber from currentWeek""")
+    currentWeek = int(c.fetchone()[0])
+
+    conn.row_factory = sqlite3.Row
+
+    fantasyGames = []
+    for week in range(1, currentWeek):
+        ####################### uncomment if statement to play games ############################
+        #if (1==0):
+        c = conn.cursor()
+        c.execute("""select PG.playerid, name, PG.week,
+                        PassingYards,
+                        PassingTouchdowns,
+                        PassingInterceptions,
+                        RushingYards,
+                        RushingTouchdowns,
+                        Receptions,
+                        ReceivingYards,
+                        ReceivingTouchdowns,
+                        TwoPointConversionPasses,
+                        TwoPointConversionRuns,
+                        TwoPointConversionReceptions,
+                        FumblesLost,
+                        FumbleReturnTouchdowns,
+                        ExtraPointsMade,
+                        FieldGoalsMade0to19,
+                        FieldGoalsMade20to29,
+                        FieldGoalsMade30to39,
+                        FieldGoalsMade40to49,
+                        FieldGoalsMade50Plus,
+
+                        CAST(PassingYards AS decimal) / 25.0                AS PassingYards_Pts,
+                        CAST(PassingTouchdowns AS decimal) * 4              AS PassingTouchdowns_Pts,
+                        CAST(PassingInterceptions AS decimal) * -2          AS PassingInterceptions_Pts,
+                        CAST(RushingYards AS decimal) / 10.0                AS RushingYards_Pts,
+                        CAST(RushingTouchdowns AS decimal) * 6              AS RushingTouchdowns_Pts,
+                        CAST(Receptions AS decimal) * 1                     AS Receptions_Pts,
+                        CAST(ReceivingYards AS decimal) / 10.0              AS ReceivingYards_Pts,
+                        CAST(ReceivingTouchdowns AS decimal) * 6            AS ReceivingTouchdowns_Pts,
+                        CAST(TwoPointConversionPasses AS decimal) * 2
+                        + CAST(TwoPointConversionRuns AS decimal) * 2
+                        + CAST(TwoPointConversionReceptions AS decimal) * 2 AS TwoPointConversion_Pts,
+                        CAST(FumblesLost AS decimal) * -2                   AS FumblesLost_Pts,
+                        CAST(FumbleReturnTouchdowns AS decimal) * 6         AS FumbleReturnTouchdowns_Pts,
+                        CAST(ExtraPointsMade AS decimal) * 1                AS ExtraPointsMade_Pts,
+                        CAST(FieldGoalsMade0to19 AS decimal) * 1
+                        + CAST(FieldGoalsMade20to29 AS decimal) * 1
+                        + CAST(FieldGoalsMade30to39 AS decimal) * 1
+                        + CAST(FieldGoalsMade40to49 AS decimal) * 1         AS FieldGoalsMade0to49_Pts,
+                        CAST(FieldGoalsMade50Plus AS decimal) * 5           AS FieldGoalsMade50Plus_Pts,
+
+                        + CAST(PassingYards AS decimal) / 25.0
+                        + CAST(PassingTouchdowns AS decimal) * 4
+                        + CAST(PassingInterceptions AS decimal) * -2
+                        + CAST(RushingYards AS decimal) / 10.0
+                        + CAST(RushingTouchdowns AS decimal) * 6
+                        + CAST(Receptions AS decimal) * 1
+                        + CAST(ReceivingYards AS decimal) / 10.0
+                        + CAST(ReceivingTouchdowns AS decimal) * 6
+                        + CAST(TwoPointConversionPasses AS decimal) * 2
+                        + CAST(TwoPointConversionRuns AS decimal) * 2
+                        + CAST(TwoPointConversionReceptions AS decimal) * 2
+                        + CAST(FumblesLost AS decimal) * -2
+                        + CAST(FumbleReturnTouchdowns AS decimal) * 6
+                        + CAST(ExtraPointsMade AS decimal) * 1
+                        + CAST(FieldGoalsMade0to19 AS decimal) * 1
+                        + CAST(FieldGoalsMade20to29 AS decimal) * 1
+                        + CAST(FieldGoalsMade30to39 AS decimal) * 1
+                        + CAST(FieldGoalsMade40to49 AS decimal) * 1
+                        + CAST(FieldGoalsMade50Plus AS decimal) * 5         AS PlayerPoints
+
+
+                    from
+                        playerGame2019 'PG'
+                    join
+                    fantasyplayergame 'FPG'
+                    on PG.playerid = FPG.playerid and PG.week = FPG.week
+                    where
+                    seasonType = '1'
+                    and PG.week = ?
+                    order by PG.playerid""", (week,))
+
+        fantasyGame = c.fetchall()
+        print(fantasyGame)
+        for pg in fantasyGame:
+            print(f"{pg['PlayerPoints']}")
+
+        fantasyGames.append(fantasyGame)
+
+    return render_template("season.html", fantasyGames = fantasyGames)
+        ############### comment else statement to play games
+        #else:
+            #return render_template("season.html")
+
+@app.route("/startOver")
+def startOver():
+    conn = sqlite3.connect('football.db')
+    c = conn.cursor()
+    c.execute("""update currentWeek set weekNumber = 1""")
+    c.execute("""delete from FantasyPlayerGame""")
+    conn.commit()
     return render_template("season.html")
+
+@app.route("/signUp")
+def signUp():
+    return render_template("signUp.html")
 
 @app.route("/eligiblePlayers")
 def eligiblePlayers():
@@ -107,6 +163,7 @@ def eligiblePlayers():
     c.execute("""select playerid, firstName, lastName, position, team
                 from player2019
                 where team is not null
+                and status = 'Active'
                 and team != ''
                 and position in ('QB', 'RB', 'WR', 'TE', 'K')
                 order by position""")
