@@ -27,7 +27,7 @@ body
     margin-top: 20px;
 }
 
-.btn-success
+.btn-success, .list-button
 {
     float: right;
 }

@@ -15,8 +15,8 @@
       <div class="col-md-3"></div>
       <div class="col-md-6">
         <table class="table">
-          <thead class="thead-dark">
-            <tr>
+          <thead class="thead-dark" >
+            <tr class="yellow">
               <th scope="col">Name</th>
               <th scope="col">Position</th>
               <th scope="col">Team</th>
@@ -26,7 +26,7 @@
           </thead>
           <tbody>
             {% for player in roster %}
-              <tr>
+              <tr class="player">
                 <td>{{ player[1] }} {{ player[2] }}</td>
                 <td>{{ player[3] }}</td>
                 <td>{{ player[4] }}</td>
@@ -47,6 +47,13 @@
                       <button type="submit" id="addAnotherPlayer" formaction="/createTeam" class="btn btn-primary">Add Another Player</button>
                    </form>
                 </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                  <form>
+                    <button type="submit" id="season" formaction="/season" class="btn btn-success">To Season</button></td>
+                  </form>
               </tr>
           </tbody>
         </table>
@@ -54,6 +61,8 @@
       <div class="col-md-3"></div>
     </div>
 {% endblock %}
+
+
 
 {% block javascript %}
   <script src="{{ url_for('static', filename='js/roster.js') }}"></script>
