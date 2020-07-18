@@ -9,7 +9,67 @@
 {% endblock %}
 
 {% block container %}
-  <!-- NO CONTENT YET -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      <h1>Instructions</h1>
+      <p>This app allows you to simulate fantasy football games for the 2019-2020 NFL regular season</p>
+      <h3>Create Team</h3>
+      <ul>
+        <li> Pick a total of 5 offensive players, one from each of the following positions:</li>
+        <ul>
+          <li>Quarterback</li>
+          <li>Running Back</li>
+          <li>Tight End</li>
+          <li>Wide Receiver</li>
+          <li>Kicker</li>
+        </ul>
+        </li>
+      </ul>
+      <h3>Roster</h3>
+      <ul>
+        <li>Click Release to release a player</li>
+        <li>Go back to Create Team to add more players</li>
+        <li>Players and be added or removed at anytime during the season</li>
+      </ul>
+      <h3>Season</h3>
+      <ul>
+        <li>Click Play Next Weeks Game to simulate the next game of the season</li>
+        <li>See stats for each game including:</li>
+        <ul>
+          <li>Click on individual player's names to expand their individual stats and points</li>
+          <li>See team's weekly points in yellow</li>
+          <li>See total points for the season in the upper right hand corner</li>
+        </ul>
+        <li>Click View Roster to go back to the roster to remove players</li>
+        <ul>
+          <li>You can then go back Add Players and add another player of the same position as the removed player</li>
+        </ul>
+        <li>Click Start Season Over to begin a new season</li>
+      </ul>
+    </div>
+
+    <div class="col-md-6">
+      <h1>Scoring</h1>
+      <ul>
+        <li><strong>Passing Yards</strong>: 1 point per 25 yards</li>
+        <li><strong>Passing Touchdowns</strong>: 4 points</li>
+        <li><strong>Passing Interceptions</strong>: -2 points</li>
+        <li><strong>Rushing Yards</strong>: 1 point per 10 yards</li>
+        <li><strong>Rushing Touchdowns</strong>: 6 points</li>
+        <li><strong>Receptions</strong>: 1 points</li>
+        <li><strong>Receiving Yards</strong>: 1 point per 10 yards</li>
+        <li><strong>Receiving Touchdowns</strong>: 6 points</li>
+        <li><strong>2-Point Conversions</strong>: 2 points</li>
+        <li><strong>Fumbles Lost</strong>: -2 points</li>
+        <li><strong>Fumble Recovered for a Touchdown</strong>: 6 points</li>
+        <li><strong>PAT Made</strong>: 1 point</li>
+        <li><strong>FG Made (0-49 yards)</strong>: 3 points</li>
+        <li><strong>FG Made (50+ yards)</strong>: 5 points</li>
+      </ul>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block javascript %}

@@ -2,9 +2,31 @@ table
 {
     margin-top: 20px
 }
-
 .release
 {
     width: 20%;
 }
-
+td
+{
+    vertical-align: middle !important;
+}
+.teamImage
+{
+    height: 100%;
+    width: 170px;
+}
+.playerName
+{
+    font-family: Arial;
+    font-size: 120%;
+    font-weight: bold;
+}
+.playerPosition
+{
+    font-family: Arial;
+    font-size: 120%;
+}
+th, td
+{
+    text-align:center
+}

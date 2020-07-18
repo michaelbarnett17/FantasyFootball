@@ -1,3 +1,7 @@
+// Following commented code was used in earlier vesion of program, but no longer needed.
+
+/*
+
 var playerCount = 1;
 const maxPlayers = 3;
 var QB = false;
@@ -153,6 +157,8 @@ function lookupTeam(playerTeam)
 
     return teams[playerTeam];
 }
+
+*/
 
 
 

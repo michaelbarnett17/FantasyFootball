@@ -32,12 +32,17 @@
           <a class="nav-link" href="{{ url_for('season') }}" id="seasonNav">Season</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('instructions') }}" id="instructionsNav">Instructions/Rules</a>
+          <a class="nav-link" href="{{ url_for('instructions') }}" id="instructionsNav">Instructions</a>
         </li>
       </ul>
     </nav>
     {% block container %}
     {% endblock %}
+    <footer class="footer class= d-none d-md-table-cell">
+      <div class="container">
+        <span class="text-muted">Statistics complementary of</span> <a href="https://fantasydata.com/"><span class="text-muted">fantasydata.com</span></a>
+      </div>
+    </footer>
     <!-- Optional JavaScript -->
     {% block javascript %}
     {% endblock %}

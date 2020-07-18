@@ -6,7 +6,6 @@
 
 {% block title %}
   <title>Roster</title>
-
 {% endblock %}
 
 {% block container %}
@@ -19,23 +18,27 @@
             <tr class="yellow">
               <th scope="col">Name</th>
               <th scope="col">Position</th>
-              <th scope="col">Team</th>
-              <th scope="col">Photo</th>
+              <th scope="col" class="d-none d-md-table-cell">Team</th>
+              <th scope="col" class="d-none d-md-table-cell">Photo</th>
               <th scope="col" class="release">Release Player</th>
             </tr>
           </thead>
           <tbody>
             {% for player in roster %}
               <tr class="player">
-                <td>{{ player[1] }} {{ player[2] }}</td>
-                <td>{{ player[3] }}</td>
-                <td>{{ player[4] }}</td>
-                <td>
+                <td class="playerName">{{ player[1] }} {{ player[2] }}</td>
+                <td class="playerPosition">{{ player[3] }}</td>
+                <td class="d-none d-md-table-cell">
+                  <div class="teamImageDiv">
+                    <img src ="{{ player[4] }}" alt="image of team" class="teamImage">
+                  </div>
+                </td>
+                <td class="d-none d-md-table-cell">
                   <img src="{{ player[5] }}" alt="image of player">
                 </td>
                 <td class="release">
                   <form>
-                     <input type="hidden" id="release" name="release" value="{{ player[0] }}">
+                     <input type="hidden" class="release" name="release" value="{{ player[0] }}">
                      <button type="submit" name="releasePlayer" formaction="/release" class="btn btn-danger">Release</button>
                   </form>
                 </td>
@@ -48,8 +51,8 @@
                    </form>
                 </td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td class="d-none d-md-table-cell"></td>
+                <td class="d-none d-md-table-cell"></td>
                 <td>
                   <form>
                     <button type="submit" id="season" formaction="/season" class="btn btn-success">To Season</button></td>
@@ -60,9 +63,8 @@
       </div>
       <div class="col-md-3"></div>
     </div>
+  </div>
 {% endblock %}
-
-
 
 {% block javascript %}
   <script src="{{ url_for('static', filename='js/roster.js') }}"></script>

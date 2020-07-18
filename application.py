@@ -210,10 +210,12 @@ def tryToAddPlayerToRoster(c, conn):
         return render_template("createTeam.html", player = None)
 
 def getCurrentRoster(c, conn):
-    c.execute("""select fantasyteam.playerid, firstName, lastName, position, team, photourl
+    c.execute("""select fantasyteam.playerid, firstName, lastName, position, WikipediaWordMarkUrl, photourl
                 from player2019
                 join fantasyteam
-                on player2019.playerid = fantasyTeam.playerid""")
+                on player2019.playerid = fantasyTeam.playerid
+                join team2019
+                on player2019.Team = Team2019.Key""")
     try:
         roster = c.fetchall()
         conn.close()

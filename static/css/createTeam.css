@@ -16,17 +16,14 @@ body
     border-radius: 5px;
     margin-bottom: 4px;
 }
-
 #createTeamNav
 {
     color: white;
 }
-
 .btn-info
 {
     margin-top: 20px;
 }
-
 .btn-success, .list-button
 {
     float: right;
