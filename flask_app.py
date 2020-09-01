@@ -5,7 +5,8 @@ app = Flask(__name__)
 
 @app.route("/playNextWeeksGame")
 def playNextWeeksGame():
-    conn = sqlite3.connect('football.db')
+    #database directory for pythonanywhere.com 
+    conn = sqlite3.connect('/home/michaelbarnett17/football.db')
     c = conn.cursor()
 
     c.execute("""select weekNumber from currentWeek""")
